@@ -1,0 +1,109 @@
+<html lang="en">
+<%- include('./header.ejs');%>
+
+    <body>
+        <div class="container col-sm-12" id="mainform">
+            <div id="signupbox" style=" margin-top:50px"
+                class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <div class="panel-title">Iscriviti</div>
+                        <div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink"
+                                href="/">Accedi</a></div>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" role="form" method="post" action="/signup"
+                            onSubmit="return checkblank(this);">
+                            <% if (message.length> 0) { %>
+                                <div class="alert alert-success col-sm-12">
+                                    <%= message %>
+                                </div>
+                                <% } %>
+                                    <div id="signupalert" style="display:none" class="alert alert-danger">
+                                        <p>Error:</p>
+                                        <span></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="nome" class="col-md-3 control-label">Nome</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="nome" placeholder="Nome">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cognome" class="col-md-3 control-label">Cognome</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="cognome"
+                                                placeholder="Cognome">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="matricola" class="col-md-3 control-label">Matricola</label>
+                                        <div class="col-md-9">
+                                            <input type="number" class="form-control" name="matricola"
+                                                placeholder="Matricola">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email" class="col-md-3 control-label">Indirizzo Email</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="email"
+                                                placeholder="Indirizzo Email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password" class="col-md-3 control-label">Password</label>
+                                        <div class="col-md-9">
+                                            <input type="password" class="form-control" name="password"
+                                                placeholder="Password">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="numerotelefonico" class="col-md-3 control-label">Recapito
+                                            Telefonico</label>
+                                        <div class="col-md-9">
+                                            <input type="number" class="form-control" name="numerotelefonico"
+                                                placeholder="Recapito Telefonico">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="universita" class="col-md-3 control-label">Università</label>
+                                        <div class="col-md-9">
+                                            <input type="number" class="form-control" name="universita"
+                                                placeholder="Università">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="corsodilaurea" class="col-md-3 control-label">Corso Di
+                                            Laurea</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="corsodilaurea"
+                                                placeholder="Corso Di Laurea">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <!-- Button -->
+                                        <div class="col-md-offset-3 col-md-9">
+                                            <button id="btn-signup" type="submit" class="btn btn-info"><i
+                                                    class="icon-hand-right"></i> &nbsp Sign Up</button>
+
+                                        </div>
+                                    </div>
+
+
+
+
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </body>
+
+</html>

@@ -1,0 +1,39 @@
+</html lang="en">
+<%- include('./header.ejs');%>
+
+	<body>
+
+		<%- include('./menu.ejs');%>
+			<div class="form-group">
+				<h1>Scegli l'insegnamento</h1>
+
+
+				<select name="insegnamento">
+					<% for (var i=0; i < data.length; i++) { %>
+						<option>
+							<%= data[i].Nome %>
+						</option>
+						<% } %>
+				</select>
+				<input type="submit" value="Cerca Lezioni" onclick="goDosomething(this)">
+			</div>
+
+			<script type="text/javascript"></script>
+			<script>function goDoSomething(d) {
+					alert(d.getAttribute("data[i].Nome"));
+				}
+			</script>
+
+			<!--<form name='form' method='GET'>
+	Quale aula?
+	<select name='Nome'>
+		<optgroup label='Aula'>
+			<option value='A'>1</option>
+			<option value='B'>2</option>
+			<option value='C'>3</option>
+		</optgroup>
+	</select>
+	</form>-->
+	</body>
+
+	</html>
