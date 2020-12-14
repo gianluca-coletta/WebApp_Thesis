@@ -47,8 +47,17 @@ app.use(session({
 }))
 
 // development only
+app.use((req, res, next) => {
+  console.log("middleware");
+  next();
+});
 
-app.use("/", homeRouter);
+var auth = (req, res, next) => {
+  res.msg = "foo";
+  next();
+};
+
+app.use("/", auth, homeRouter);
 app.use("/registration", registrationRouter);
 app.use("/home", loginRouter);
 app.use("/dashboard", dashboardRouter);

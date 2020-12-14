@@ -4,7 +4,9 @@ var logging = require("../models/logging");
 
 
 router.get("/signup", function (req, res) {
-    res.render('signup');
+    // select * from università
+    // select * from corsodilaurea
+    res.render('signup', {message: null, univ: [], cdl: []});
 });
 
 router.post("/signup", function (req, res) {

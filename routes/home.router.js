@@ -3,8 +3,7 @@ var router = express.Router();
 var logging = require("../models/logging");
 
 router.get("/", function (req, res) {
-    var message = '';
-    res.render('index', { message: message });
+    res.render('index', { message: '', userId: req.session.userId });
 });
 
 module.exports = router;

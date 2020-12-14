@@ -4,6 +4,8 @@ var logging = require("../models/logging");
 
 router.get("/", function (req, res, next) {
 
+    if (!req.session.userId) res.redirect("/home/login");
+
     var user = req.session;
     var email = req.session.userId.email;
     logging.info(req.session.userId.email);
@@ -15,14 +17,16 @@ router.get("/", function (req, res, next) {
 
     db.query(sql, function (err, results) {
 
-        res.render('dashboard.ejs', { user: user });
+        res.render('dashboard.ejs', { user: user, userId: req.session.userId });
     });
 });
 
 router.get("/reservation", function (req, res) {
 
-    logging.info(req.session);
-    var user = req.session;
+    if (!req.session.userId) res.redirect("/home/login");
+    
+    // logging.info(req.session);
+    // var user = req.session;
     var corsodilaurea;
     var email = req.session.userId.email;
 
@@ -35,7 +39,7 @@ router.get("/reservation", function (req, res) {
         db.query(sql1, function (err, result) {
            logging.info(result);
 
-            res.render('prenotazione.ejs', { data: result });
+            res.render('prenotazione.ejs', { data: result, userId: req.session.userId });
         });
     });
 });
