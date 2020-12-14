@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+var logging = require("../models/logging");
 
 router.get("/", function (req, res) {
     var message = '';

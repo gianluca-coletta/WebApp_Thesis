@@ -1,5 +1,7 @@
 var express = require("express");
 var router = express.Router();
+var logging = require("../models/logging");
+
 
 router.get("/signup", function (req, res) {
     res.render('signup');
@@ -28,9 +30,9 @@ router.post("/signup", function (req, res) {
 
     else {
         var query = db.query(sql, values, function (err, result) {
-            console.log(query);
+            logging.info(query);
             message = "Perfetto! Registrazione avvenuta con successo!";
-            console.log("hai appena aggiunto un nuovo studente \n Comunicazione con il database riuscita");
+            logging.info("hai appena aggiunto un nuovo studente \n Comunicazione con il database riuscita");
 
             res.render('signup.ejs', { message: message });
         });

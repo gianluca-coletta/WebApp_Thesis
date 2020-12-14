@@ -2,8 +2,6 @@
 * Module dependencies.
 */
 var express = require('express')
-  // , routes = require('./routes')
-  // , user = require('./routes/user')
   , http = require('http')
   , path = require('path');
 
@@ -50,18 +48,6 @@ app.use(session({
 
 // development only
 
-// app.get('/', routes.index);//call for main index page
-
-// app.get('/signup', routes.signup);//call for signup page
-// app.post('/signup', routes.signup);//call for signup post
-
-// app.get('/login', routes.index);//call for login page
-// app.post('/login', routes.login);//call for login post
-// app.get('/home/logout', routes.logout);//call for logout
-
-// app.get('/home/dashboard', routes.dashboard);//call for dashboard page after login
-// app.get('/home/profile',routes.profile);//to render users profile
-// app.get('/home/prenotazione',routes.prenotazione);//to render users prenotazione
 app.use("/", homeRouter);
 app.use("/registration", registrationRouter);
 app.use("/home", loginRouter);

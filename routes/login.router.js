@@ -19,9 +19,6 @@ router.post('/login', function (req, res) {
     db.query(sql, function (err, results) {
         if (results.length) {
             req.session.userId = results[0];
-            //req.session.userId = results[0].id;
-            //req.session.user = results[1];
-            // console.log("ciao " + req.session.userId.nome);
             logging.info("ciao " + req.session.userId.nome);
 
             res.redirect('/dashboard');
@@ -50,7 +47,6 @@ router.get("/profile", function (req, res) {
         return;
     }
 
-    // console.log('email ' + email);
     logging.info('email ' + email)
     var sql = "SELECT * FROM `studente` WHERE `email`='" + email + "'";
     db.query(sql, function (err, result) {
