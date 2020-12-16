@@ -8,9 +8,14 @@
             <ul class="nav navbar-nav navbar-right">
                 <% if(userId) { %>
                     <li><a href="/home/logout">Logout <%= userId.nome %></a></li>
-                <% } else { %>
-                     <li><a href="/home/login">Login</a></li>
-                <% } %>
+                    <% } else { %>
+                        <li><a href="/home/login">Login</a></li>
+                        <% } %>
+            </ul>
+            <ul class="nav navbar-nav">
+                <% if(userId) { %>
+                    <li><a href="/dashboard">Dashboard di <%= userId.nome %></a></li>
+                    <% } %>
             </ul>
         </div>
         <!--/.nav-collapse -->

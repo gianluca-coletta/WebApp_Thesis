@@ -4,9 +4,17 @@ var logging = require("../models/logging");
 
 
 router.get("/signup", function (req, res) {
-    // select * from università
-    // select * from corsodilaurea
-    res.render('signup', {message: null, univ: [], cdl: []});
+
+    var sql = "SELECT * FROM `universita` ";
+    db.query(sql, function (err, result) {
+        logging.info(result);
+
+        var sql1 = "SELECT * FROM `corsodilaurea`";
+        db.query(sql1, function (err, result1) {
+            logging.info(result1);
+            res.render('signup', { message: null, univ:result, cdl: result1 });
+        });
+    });
 });
 
 router.post("/signup", function (req, res) {

@@ -5,20 +5,19 @@
     <body>
         <div class="container">
             <%- include('./menu.ejs');%>
-            
-            <div class="jumbotron">
-                <h1 align="center">Book Classroom Seat</h1>
-                <p align="center">Grazie a questa web app potrai prenotare un posto in aula per seguire una lezione
-                    universitaria </p>
-                <hr class="my-4">
-            </div>
 
-            <span>UserId: 
-                <% if(userId) { %> 
-                    <%= userId.nome %> 
-                <% } %>  
-            </span>
-            
+                <div class="jumbotron">
+                    <h1 align="center">Book Classroom Seat</h1>
+                    <p align="center">Grazie a questa web app potrai prenotare un posto in aula per seguire una lezione
+                        universitaria </p>
+                    <hr class="my-4">
+                </div>
+                <span>UserId:
+                    <% if(userId) { %>
+                        <%= userId.nome %>
+                            <% } %>
+                </span>
+
         </div>
 
     </body>

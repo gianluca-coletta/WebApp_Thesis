@@ -1,15 +1,10 @@
 {
-  "name": "node-restapi",
+  "name": "webapp",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
     "watch": "nodemon ./app.js"
-  },
-  "author": {
-    "name": "Adam",
-    "email": "jstutorials1@gmail.com",
-    "url": "http://www.js-tutorials.com/"
   },
   "license": "MIT",
   "dependencies": {

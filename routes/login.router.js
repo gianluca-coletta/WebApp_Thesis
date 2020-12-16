@@ -41,7 +41,7 @@ router.get('/logout', function (req, res) {
 router.get("/profile", function (req, res) {
 
     var user = req.session,
-        email = req.session.userId.email;
+       email = req.session.userId.email;
     if (email == null) {
         res.redirect("/home/login");
         return;
@@ -50,7 +50,7 @@ router.get("/profile", function (req, res) {
     logging.info('email ' + email)
     var sql = "SELECT * FROM `studente` WHERE `email`='" + email + "'";
     db.query(sql, function (err, result) {
-        res.render('profile.ejs', { data: result });
+        res.render('profile.ejs', {user: user, data: result, userId: req.session.userId });
     });
 });
 
