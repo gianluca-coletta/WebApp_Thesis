@@ -15,7 +15,7 @@ router.post('/login', function (req, res) {
     var mail = post.email;
     var pass = post.password;
 
-    var sql = "SELECT matricola, universita, nome, cognome, email FROM studente WHERE email='" + mail + "' and password = '" + pass + "'";
+    var sql = "SELECT matricola, nome, cognome, email FROM studente WHERE email='" + mail + "' and password = '" + pass + "'";
     db.query(sql, function (err, results) {
         if (results.length) {
             req.session.userId = results[0];

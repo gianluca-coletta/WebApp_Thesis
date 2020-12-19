@@ -10,7 +10,7 @@
                     <div class="panel-heading">
                         <div class="panel-title">Iscriviti</div>
                         <div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink"
-                                href="/">Accedi</a></div>
+                                href="/home/login">Accedi</a></div>
                     </div>
                     <div class="panel-body">
                         <form class="form-horizontal" role="form" method="post" action="/registration/signup"
@@ -25,41 +25,53 @@
                                         <span></span>
                                     </div>
 
-                                    <div class="form-group">
+                                    <!-- Nome -->
+                                    <div class="form-group" id="nome">
                                         <label for="nome" class="col-md-3 control-label">Nome</label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" name="nome" placeholder="Nome">
+                                            <span id="nome_error" class="text-danger">Errore</span>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+
+                                    <!-- Cognome -->
+                                    <div class="form-group" id="cogn">
                                         <label for="cognome" class="col-md-3 control-label">Cognome</label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" name="cognome"
                                                 placeholder="Cognome">
                                         </div>
                                     </div>
-                                    <div class="form-group">
+
+                                    <!-- Matricola -->
+                                    <div class="form-group" id="matr">
                                         <label for="matricola" class="col-md-3 control-label">Matricola</label>
                                         <div class="col-md-9">
                                             <input type="number" class="form-control" name="matricola"
                                                 placeholder="Matricola">
                                         </div>
                                     </div>
-                                    <div class="form-group">
+
+                                    <!-- Email -->
+                                    <div class="form-group" id="mail">
                                         <label for="email" class="col-md-3 control-label">Indirizzo Email</label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" name="email"
                                                 placeholder="Indirizzo Email">
                                         </div>
                                     </div>
-                                    <div class="form-group">
+
+                                    <!-- Password -->
+                                    <div class="form-group" id="pass">
                                         <label for="password" class="col-md-3 control-label">Password</label>
                                         <div class="col-md-9">
                                             <input type="password" class="form-control" name="password"
                                                 placeholder="Password">
                                         </div>
                                     </div>
-                                    <div class="form-group">
+
+                                    <!-- NumeroTelefonico -->
+                                    <div class="form-group" id="mob">
                                         <label for="numerotelefonico" class="col-md-3 control-label">Recapito
                                             Telefonico</label>
                                         <div class="col-md-9">
@@ -67,20 +79,22 @@
                                                 placeholder="Recapito Telefonico">
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="universita" class="col-md-3 control-label">Università</label>
-                                        <div class="col-md-9">
 
-                                            <input id="universita" type="number" class="form-control" name="universita"
-                                                placeholder="Università">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
+                                    <!-- CorsoDiLaurea -->
+                                    <div class="form-group" id="cdl">
                                         <label for="corsodilaurea" class="col-md-3 control-label">Corso Di
                                             Laurea</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="corsodilaurea"
-                                                placeholder="Corso Di Laurea">
+                                            <select name="corsodilaurea" class="form-control">
+                                                <option value="none">
+                                                    Scegli il tuo corso di laurea
+                                                </option>
+                                                <% for (var i=0; i < cdl.length; i++) { %>
+                                                    <option value="<%= cdl[i].CodiceCL %>">
+                                                        <%= cdl[i].Titolo %>
+                                                    </option>
+                                                    <% } %>
+                                            </select>
                                         </div>
                                     </div>
 
@@ -107,17 +121,76 @@
 
 
         <script>
-            
+
+            function isValidEmailAddress(emailAddress) {
+                var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+                return pattern.test(emailAddress);
+            }
+
+            function hideErrors() {
+                $("#nome_error").hide();
+            }
+
+            hideErrors();
 
             $("#btn-signup").click(function () {
-                var cdl = $("[name='corsodilaurea']").val();
-                console.log(cdl == "");
-                console.log(cdl);
+                var hasError = false;
 
-                // if (failed)
-                //    alert("Handler for .click() called.");
-                //    return false;
+                var nome = $("[name='nome']").val();
+                var cogn = $("[name='cognome']").val();
+                var matr = $("[name='matricola']").val();
+                var mail = $("[name='email']").val();
+                var pass = $("[name='password']").val();
+                var mob = $("[name='numerotelefonico']").val();
+                var cdl = $("[name='corsodilaurea']").val();
+
+                $("#nome").removeClass("has-error");
+                $("#cogn").removeClass("has-error");
+                $("#matr").removeClass("has-error");
+                $("#mail").removeClass("has-error");
+                $("#pass").removeClass("has-error");
+                $("#mob").removeClass("has-error");
+                $("#cdl").removeClass("has-error");
+
+                hideErrors();
+
+                if (nome === "") {
+                    hasError = true;
+                    $("#nome").addClass("has-error");
+                    $("#nome_error").text("Il campo nome è obbligatorio");
+                    $("#nome_error").show();
+                }
+
+                if (cogn === "") {
+                    hasError = true;
+                    $("#cogn").addClass("has-error");
+                }
+
+                if (matr === "")
+                    $("#matr").addClass("has-error");
+
+                if (mail === "" || !isValidEmailAddress(mail)) {
+                    $("#mail").addClass("has-error");
+                    //if (mail === "")
+                    // $("#mail_error").text("Il campo mail è obbligatorio");
+                    //else
+                    // $("#mail_error").text("Il campo mail è obbligatorio");    
+
+                }
+
+                if (pass === "")
+                    $("#pass").addClass("has-error");
+
+                if (mob === "")
+                    $("#mob").addClass("has-error");
+
+                if (cdl === "none")
+                    $("#cdl").addClass("has-error");
+
+                if (hasError)
+                    return false;
             });
+
 
         </script>
 
