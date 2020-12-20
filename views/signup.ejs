@@ -30,7 +30,7 @@
                                         <label for="nome" class="col-md-3 control-label">Nome</label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" name="nome" placeholder="Nome">
-                                            <span id="nome_error" class="text-danger">Errore</span>
+                                            <span id="nome_error" class="text-danger"></span>
                                         </div>
                                     </div>
 
@@ -40,6 +40,7 @@
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" name="cognome"
                                                 placeholder="Cognome">
+                                            <span id="cogn_error" class="text-danger"></span>
                                         </div>
                                     </div>
 
@@ -49,6 +50,7 @@
                                         <div class="col-md-9">
                                             <input type="number" class="form-control" name="matricola"
                                                 placeholder="Matricola">
+                                            <span id="matr_error" class="text-danger"></span>
                                         </div>
                                     </div>
 
@@ -58,6 +60,7 @@
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" name="email"
                                                 placeholder="Indirizzo Email">
+                                            <span id="mail_error" class="text-danger"></span>
                                         </div>
                                     </div>
 
@@ -67,6 +70,18 @@
                                         <div class="col-md-9">
                                             <input type="password" class="form-control" name="password"
                                                 placeholder="Password">
+                                            <span id="pass_error" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Conferma password -->
+                                    <div class="form-group" id="pass1">
+                                        <label for="confermapassword" class="col-md-3 control-label">Conferma la
+                                            Password</label>
+                                        <div class="col-md-9">
+                                            <input type="password" class="form-control" name="password1"
+                                                placeholder="Conferma la Password">
+                                            <span id="pass1_error" class="text-danger"></span>
                                         </div>
                                     </div>
 
@@ -77,12 +92,13 @@
                                         <div class="col-md-9">
                                             <input type="number" class="form-control" name="numerotelefonico"
                                                 placeholder="Recapito Telefonico">
+                                            <span id="mob_error" class="text-danger"></span>
                                         </div>
                                     </div>
 
                                     <!-- CorsoDiLaurea -->
                                     <div class="form-group" id="cdl">
-                                        <label for="corsodilaurea" class="col-md-3 control-label">Corso Di
+                                        <label for="corsodilaurea" class="col-md-3 control-label">Corso di
                                             Laurea</label>
                                         <div class="col-md-9">
                                             <select name="corsodilaurea" class="form-control">
@@ -95,6 +111,7 @@
                                                     </option>
                                                     <% } %>
                                             </select>
+                                            <span id="cdl_error" class="text-danger"></span>
                                         </div>
                                     </div>
 
@@ -130,7 +147,27 @@
             function hideErrors() {
                 $("#nome_error").hide();
             }
-
+            function hideErrors() {
+                $("#cogn_error").hide();
+            }
+            function hideErrors() {
+                $("#matr_error").hide();
+            }
+            function hideErrors() {
+                $("#mail_error").hide();
+            }
+            function hideErrors() {
+                $("#pass_error").hide();
+            }
+            function hideErrors() {
+                $("#pass1_error").hide();
+            }
+            function hideErrors() {
+                $("#mob_error").hide();
+            }
+            function hideErrors() {
+                $("#cdl_error").hide();
+            }
             hideErrors();
 
             $("#btn-signup").click(function () {
@@ -141,6 +178,7 @@
                 var matr = $("[name='matricola']").val();
                 var mail = $("[name='email']").val();
                 var pass = $("[name='password']").val();
+                var pass1 = $("[name='password1']").val();
                 var mob = $("[name='numerotelefonico']").val();
                 var cdl = $("[name='corsodilaurea']").val();
 
@@ -149,10 +187,11 @@
                 $("#matr").removeClass("has-error");
                 $("#mail").removeClass("has-error");
                 $("#pass").removeClass("has-error");
+                $("#pass1").removeClass("has-error");
                 $("#mob").removeClass("has-error");
                 $("#cdl").removeClass("has-error");
 
-                hideErrors();
+
 
                 if (nome === "") {
                     hasError = true;
@@ -164,28 +203,74 @@
                 if (cogn === "") {
                     hasError = true;
                     $("#cogn").addClass("has-error");
+                    $("#cogn_error").text("Il campo cognome è obbligatorio");
+                    $("#cogn_error").show();
                 }
 
-                if (matr === "")
+                if (matr === "") {
+                    hasError = true;
                     $("#matr").addClass("has-error");
+                    $("#matr_error").text("Il campo matricola è obbligatorio");
+                    $("#matr_error").show();
+                }
 
                 if (mail === "" || !isValidEmailAddress(mail)) {
-                    $("#mail").addClass("has-error");
-                    //if (mail === "")
-                    // $("#mail_error").text("Il campo mail è obbligatorio");
-                    //else
-                    // $("#mail_error").text("Il campo mail è obbligatorio");    
+                    if (mail === "") {
+                        hasError = true;
+                        $("#mail").addClass("has-error");
+                        $("#mail_error").text("Il campo email è obbligatorio");
+                        $("#mail_error").show();
+                    }
+                    else {
+                        hasError = true;
+                        $("#mail").addClass("has-error");
+                        $("#mail_error").text("L'email non è nel formato corretto");
+                        $("#mail_error").show();
+                    }
+
 
                 }
 
-                if (pass === "")
+                if (pass === "") {
+                    hasError = true;
                     $("#pass").addClass("has-error");
+                    $("#pass_error").text("Il campo password è obbligatorio");
+                    $("#pass_error").show();
+                }
 
-                if (mob === "")
+                if (pass1 === "" || pass.toString() !== pass1.toString()) {
+                    if (pass1 === "") {
+                        hasError = true;
+                        $("#pass1").addClass("has-error");
+                        $("#pass1_error").text("Conferma la password inserita");
+                        $("#pass1_error").show();
+                    }
+                    else {
+                        hasError = true;
+                        $("#pass1").addClass("has-error");
+                        $("#pass1_error").text("La password non coincide");
+                        $("#pass1_error").show();
+                    }
+                }
+
+
+                //if (pass.toString() !== pass1.toString())
+                //   $("#pass", "#pass1").addClass("has-error");
+
+                if (mob === "") {
+                    hasError = true;
                     $("#mob").addClass("has-error");
+                    $("#mob_error").text("Il campo numero telefonico è obbligatorio");
+                    $("#mob_error").show();
+                }
 
-                if (cdl === "none")
+
+                if (cdl === "none") {
+                    hasError = true;
                     $("#cdl").addClass("has-error");
+                    $("#cdl_error").text("Selezionare la propria Università");
+                    $("#cdl_error").show();
+                }
 
                 if (hasError)
                     return false;
