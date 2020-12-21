@@ -13,22 +13,21 @@
                                 href="/home/login">Accedi</a></div>
                     </div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" method="post" action="/registration/signup"
-                            onSubmit="return checkblank(this);">
+                        <form role="form" method="post" action="/registration/signup">
                             <% if (message !==null) { %>
                                 <div class="alert alert-success col-sm-12">
                                     <%= message %>
                                 </div>
                                 <% } %>
-                                    <div id="signupalert" style="display:none" class="alert alert-danger">
+                                    <!-- <div id="signupalert" style="display:none" class="alert alert-danger">
                                         <p>Error:</p>
                                         <span></span>
-                                    </div>
+                                    </div> -->
 
                                     <!-- Nome -->
                                     <div class="form-group" id="nome">
-                                        <label for="nome" class="col-md-3 control-label">Nome</label>
-                                        <div class="col-md-9">
+                                        <label for="nome" >Nome</label>
+                                        <div >
                                             <input type="text" class="form-control" name="nome" placeholder="Nome">
                                             <span id="nome_error" class="text-danger"></span>
                                         </div>
@@ -36,8 +35,8 @@
 
                                     <!-- Cognome -->
                                     <div class="form-group" id="cogn">
-                                        <label for="cognome" class="col-md-3 control-label">Cognome</label>
-                                        <div class="col-md-9">
+                                        <label for="cognome" >Cognome</label>
+                                        <div >
                                             <input type="text" class="form-control" name="cognome"
                                                 placeholder="Cognome">
                                             <span id="cogn_error" class="text-danger"></span>
@@ -46,8 +45,8 @@
 
                                     <!-- Matricola -->
                                     <div class="form-group" id="matr">
-                                        <label for="matricola" class="col-md-3 control-label">Matricola</label>
-                                        <div class="col-md-9">
+                                        <label for="matricola" >Matricola</label>
+                                        <div >
                                             <input type="number" class="form-control" name="matricola"
                                                 placeholder="Matricola">
                                             <span id="matr_error" class="text-danger"></span>
@@ -56,8 +55,8 @@
 
                                     <!-- Email -->
                                     <div class="form-group" id="mail">
-                                        <label for="email" class="col-md-3 control-label">Indirizzo Email</label>
-                                        <div class="col-md-9">
+                                        <label for="email" >Indirizzo Email</label>
+                                        <div >
                                             <input type="text" class="form-control" name="email"
                                                 placeholder="Indirizzo Email">
                                             <span id="mail_error" class="text-danger"></span>
@@ -66,8 +65,8 @@
 
                                     <!-- Password -->
                                     <div class="form-group" id="pass">
-                                        <label for="password" class="col-md-3 control-label">Password</label>
-                                        <div class="col-md-9">
+                                        <label for="password" >Password</label>
+                                        <div >
                                             <input type="password" class="form-control" name="password"
                                                 placeholder="Password">
                                             <span id="pass_error" class="text-danger"></span>
@@ -76,9 +75,9 @@
 
                                     <!-- Conferma password -->
                                     <div class="form-group" id="pass1">
-                                        <label for="confermapassword" class="col-md-3 control-label">Conferma la
+                                        <label for="confermapassword" >Conferma la
                                             Password</label>
-                                        <div class="col-md-9">
+                                        <div >
                                             <input type="password" class="form-control" name="password1"
                                                 placeholder="Conferma la Password">
                                             <span id="pass1_error" class="text-danger"></span>
@@ -87,9 +86,9 @@
 
                                     <!-- NumeroTelefonico -->
                                     <div class="form-group" id="mob">
-                                        <label for="numerotelefonico" class="col-md-3 control-label">Recapito
+                                        <label for="numerotelefonico" >Recapito
                                             Telefonico</label>
-                                        <div class="col-md-9">
+                                        <div >
                                             <input type="number" class="form-control" name="numerotelefonico"
                                                 placeholder="Recapito Telefonico">
                                             <span id="mob_error" class="text-danger"></span>
@@ -98,9 +97,9 @@
 
                                     <!-- CorsoDiLaurea -->
                                     <div class="form-group" id="cdl">
-                                        <label for="corsodilaurea" class="col-md-3 control-label">Corso di
+                                        <label for="corsodilaurea" >Corso di
                                             Laurea</label>
-                                        <div class="col-md-9">
+                                        <div >
                                             <select name="corsodilaurea" class="form-control">
                                                 <option value="none">
                                                     Scegli il tuo corso di laurea
@@ -116,13 +115,14 @@
                                     </div>
 
 
-                                    <div class="form-group">
-                                        <!-- Button -->
-                                        <div class="col-md-offset-3 col-md-9">
-                                            <button id="btn-signup" type="submit" class="btn btn-info"><i
-                                                    class="icon-hand-right"></i> &nbsp Sign Up</button>
+                                    <div class="pull-right">
+                                        <!-- Save -->
+                                        <button id="btn-signup" type="submit" class="btn btn-info"><i
+                                                class="icon-hand-right"></i> Crea account</button>
 
-                                        </div>
+                                        <!-- Cancel -->
+                                        <a class="btn btn-default" href="/" role="button">Annulla</a>
+
                                     </div>
 
 
@@ -146,32 +146,21 @@
 
             function hideErrors() {
                 $("#nome_error").hide();
-            }
-            function hideErrors() {
                 $("#cogn_error").hide();
-            }
-            function hideErrors() {
                 $("#matr_error").hide();
-            }
-            function hideErrors() {
                 $("#mail_error").hide();
-            }
-            function hideErrors() {
                 $("#pass_error").hide();
-            }
-            function hideErrors() {
                 $("#pass1_error").hide();
-            }
-            function hideErrors() {
                 $("#mob_error").hide();
-            }
-            function hideErrors() {
                 $("#cdl_error").hide();
             }
+
             hideErrors();
 
             $("#btn-signup").click(function () {
                 var hasError = false;
+
+                hideErrors();
 
                 var nome = $("[name='nome']").val();
                 var cogn = $("[name='cognome']").val();
@@ -215,20 +204,17 @@
                 }
 
                 if (mail === "" || !isValidEmailAddress(mail)) {
+                    hasError = true;
                     if (mail === "") {
-                        hasError = true;
                         $("#mail").addClass("has-error");
                         $("#mail_error").text("Il campo email è obbligatorio");
                         $("#mail_error").show();
                     }
                     else {
-                        hasError = true;
                         $("#mail").addClass("has-error");
                         $("#mail_error").text("L'email non è nel formato corretto");
                         $("#mail_error").show();
                     }
-
-
                 }
 
                 if (pass === "") {

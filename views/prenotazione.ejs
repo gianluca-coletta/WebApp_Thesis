@@ -4,24 +4,64 @@
 	<body>
 		<div class="container">
 			<%- include('./menu.ejs');%>
-				<div class="form-group">
-					<h1>Scegli l'insegnamento</h1>
-
-
-					<select name="insegnamento">
+				<!-- <div class="row"> -->
+				<label for="insegnamento">Cerca le lezioni relative ad un insegnamento</label>
+				<div class="input-group">
+					<select name="insegnamento" class="form-control">
 						<% for (var i=0; i < data.length; i++) { %>
-							<option>
+							<option value="<%= data[i].CodiceI %>">
 								<%= data[i].Nome %>
 							</option>
 							<% } %>
 					</select>
-					<input type="submit" value="Cerca Lezioni" onclick="goDosomething(this)">
+					<span class="input-group-btn">
+						<button id="btnSearch" type="button" class="btn btn-primary">Cerca</button>
+					</span>
 				</div>
+
+				<% if (data2 !== null) { %> 
+				<div>
+					<table class="table table-bordered">
+						<tr>
+							<th>Orario Inizio</th>
+							<th>Orario Fine</th>
+							<th>Giorno</th>
+							<th>Nome Aula</th>
+							<th>Sede Aula</th>
+						</tr>
+						<% for (var i=0; i < data2.length; i++) { %>
+							<tr>
+								<td>
+									<%= data2[i].orainizio %>
+								</td>
+								<td>
+									<%= data2[i].orafine %>
+								</td>
+								<td>
+									<%= data2[i].gg %>
+								</td>
+								<td>
+									<%= data2[i].nome %>
+								</td>
+								<td>
+									<%= data2[i].sede %>
+								</td>
+								<% } %>
+							</tr>
+
+					</table>
+				</div>
+				<% } %> 
 		</div>
-		<script type="text/javascript"></script>
-		<script>function goDoSomething(d) {
-				alert(d.getAttribute("data[i].Nome"));
-			}
+
+		<script>
+
+
+			$("#btnSearch").click(function () {
+				// alert("search");
+				var insegnamento = $("name=[insegnamento]").val();
+				window.location.href = "/dashboard/reservation?id=10";
+			});
 		</script>
 	</body>
 
