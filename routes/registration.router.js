@@ -3,7 +3,7 @@ var router = express.Router();
 var logging = require("../models/logging");
 var crypto = require("../models/crypto");
 
-//crypto.cypher("");
+// crypto.cypher("");
 /**
  * Load all Corso di laurea
  */
@@ -67,10 +67,9 @@ router.post("/signup", async function (req, res) {
     var lname = post.cognome;
     var mob = post.numerotelefonico;
 
-
+    var pass2 = crypto.cypher(pass);
     var sql = "INSERT INTO studente (matricola, nome, cognome, password, email, numerotelefonico, corsodilaurea) VALUES (?,?,?,?,?,?,?)";
-    // pass2 = cypher(pass);
-    var values = [matr, fname, lname, pass, mail, mob, cdl];
+    var values = [matr, fname, lname, pass2, mail, mob, cdl];
 
     // Check fields validations
     if (matr == '' || fname == '' || lname == '' || pass == '' || mail == '' || mob == '' || cdl == '') {

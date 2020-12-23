@@ -29,29 +29,24 @@ router.get("/reservation/:id?", function (req, res) {
     var id = req.query.id;
 
     logging.info(id);
-    // var user = req.session;
-    var corsodilaurea;
+
+    // Select Ins e Lez
+
     var email = req.session.userId.email;
 
-    var sql = "SELECT corsodilaurea FROM `studente` WHERE `email`='" + email + "'";
+    var sql = "SELECT i.* FROM studente s inner join insegnamento i on s.corsodilaurea = i.CorsoDiLaurea WHERE s.email = '" + email + "'";
+
     db.query(sql, function (err, result) {
-        corsodilaurea = result[0].corsodilaurea;
-        // logging.info(corsodilaurea);
+        if (id !== undefined) {
+            var sql1 = "SELECT orainizio, orafine, gg, insegnamento, nome, sede, postitotali FROM lezione inner join aula on lezione.idaula = aula.id";
+            db.query(sql1, function (err, result2) {
+                //    logging.info(result2);
+                res.render('prenotazione.ejs', { ins: result, userId: req.session.userId, lez: result2 });
+            });
+        } else {
+            res.render('prenotazione.ejs', { ins: result, userId: req.session.userId, lez: null });
+        }
 
-        var sql1 = "SELECT * FROM `insegnamento` WHERE `corsodilaurea`='" + corsodilaurea + "'";
-
-        db.query(sql1, function (err, result) {
-            if (id !== undefined) {
-                var sql2 = "SELECT orainizio, orafine, gg, insegnamento, nome, sede, postitotali FROM `lezione`, `aula` WHERE lezione.idaula=aula.id";
-                db.query(sql2, function (err, result2) {
-                    //    logging.info(result2);
-                    res.render('prenotazione.ejs', { data: result, userId: req.session.userId, data2: result2 });
-                });
-            } else {
-                res.render('prenotazione.ejs', { data: result, userId: req.session.userId, data2: null });
-            }
-
-        });
     });
 });
 

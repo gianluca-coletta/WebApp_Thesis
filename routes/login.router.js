@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var logging = require("../models/logging");
+var crypto = require("../models/crypto")
 
 router.get('/login', function (req, res) {
     var message = '';
@@ -14,11 +15,9 @@ router.post('/login', function (req, res) {
     var post = req.body;
     var mail = post.email;
     var pass = post.password;
-
-    var sql = "SELECT matricola, nome, cognome, email, password FROM studente WHERE email='" + mail + "' and password = '" + pass + "'";
+    var sql = "SELECT matricola, nome, cognome, email, password FROM studente WHERE email='" + mail + "'";
     db.query(sql, function (err, results) {
-        // if (passwrod == cypther(pass)) => autenticato
-        if (results.length) {
+        if (results[0].password == crypto.cypher(pass)) {
             req.session.userId = results[0];
             logging.info("ciao " + req.session.userId.nome);
 

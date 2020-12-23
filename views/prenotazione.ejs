@@ -8,9 +8,9 @@
 				<label for="insegnamento">Cerca le lezioni relative ad un insegnamento</label>
 				<div class="input-group">
 					<select name="insegnamento" class="form-control">
-						<% for (var i=0; i < data.length; i++) { %>
-							<option value="<%= data[i].CodiceI %>">
-								<%= data[i].Nome %>
+						<% for (var i=0; i < ins.length; i++) { %>
+							<option value="<%= ins[i].CodiceI %>">
+								<%= ins[i].Nome %>
 							</option>
 							<% } %>
 					</select>
@@ -19,7 +19,7 @@
 					</span>
 				</div>
 
-				<% if (data2 !== null) { %> 
+				<% if (lez !== null) { %> 
 				<div>
 					<table class="table table-bordered">
 						<tr>
@@ -29,22 +29,22 @@
 							<th>Nome Aula</th>
 							<th>Sede Aula</th>
 						</tr>
-						<% for (var i=0; i < data2.length; i++) { %>
+						<% for (var i=0; i < lez.length; i++) { %>
 							<tr>
 								<td>
-									<%= data2[i].orainizio %>
+									<%= lez[i].orainizio %>
 								</td>
 								<td>
-									<%= data2[i].orafine %>
+									<%= lez[i].orafine %>
 								</td>
 								<td>
-									<%= data2[i].gg %>
+									<%= lez[i].gg %>
 								</td>
 								<td>
-									<%= data2[i].nome %>
+									<%= lez[i].nome %>
 								</td>
 								<td>
-									<%= data2[i].sede %>
+									<%= lez[i].sede %>
 								</td>
 								<% } %>
 							</tr>
@@ -53,7 +53,6 @@
 				</div>
 				<% } %> 
 		</div>
-
 		<script>
 
 
