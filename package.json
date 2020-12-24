@@ -4,15 +4,17 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "watch": "nodemon ./app.js"
+    "watch": "cross-env APP_ENV=dev nodemon ./app.js"
   },
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "cross-env": "^7.0.3",
     "ejs": "^2.7.4",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "mariadb": "^2.4.2",
+    "moment": "^2.29.1",
     "mysql": "^2.18.1",
     "req-flash": "0.0.3"
   },

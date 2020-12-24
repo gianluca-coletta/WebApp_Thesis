@@ -18,19 +18,22 @@ router.post('/login', function (req, res) {
     var pass = post.password;
     var sql = "SELECT matricola, nome, cognome, email, password FROM studente WHERE email='" + mail + "'";
     db.query(sql, function (err, results) {
-        if (results[0].password == crypto.cypher(pass)) {
-            req.session.userId = results[0];
+        if (results.length === 0 || results[0].password != crypto.cypher(pass)) {
+            message = 'Credenziali errate';
+            res.render('login.ejs', { message: message });
+        } else {
+            var r = results[0];
+            req.session.userId = {
+                matricola: r.matricola,
+                email: r.email,
+                nome: r.nome,
+                cognome: r.cognome
+            };
             logging.info("ciao " + req.session.userId.nome);
 
             res.redirect('/dashboard');
         }
-        else {
-            message = 'Credenziali errate';
-            res.render('login.ejs', { message: message });
-        }
-
     });
-
 });
 
 //logout
@@ -44,7 +47,7 @@ router.get('/logout', function (req, res) {
 router.get("/profile", function (req, res) {
 
     var user = req.session,
-       email = req.session.userId.email;
+        email = req.session.userId.email;
     if (email == null) {
         return res.redirect("/home/login");
     }
@@ -52,7 +55,7 @@ router.get("/profile", function (req, res) {
     logging.info('email ' + email)
     var sql = "SELECT * FROM `studente` WHERE `email`='" + email + "'";
     db.query(sql, function (err, result) {
-        res.render('profile.ejs', {user: user, data: result, userId: req.session.userId });
+        res.render('profile.ejs', { user: user, data: result, userId: req.session.userId });
     });
 });
 

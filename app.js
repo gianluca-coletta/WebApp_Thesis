@@ -9,6 +9,10 @@ var homeRouter = require("./routes/home.router");
 var loginRouter = require("./routes/login.router");
 var registrationRouter = require("./routes/registration.router");
 var dashboardRouter = require("./routes/dashboard.router");
+var errorRouter = require("./routes/error.router");
+
+var moment = require("moment");
+moment.locale("it");
 
 //var methodOverride = require('method-override');
 var session = require('express-session');
@@ -61,6 +65,7 @@ app.use("/", homeRouter);
 app.use("/registration", registrationRouter);
 app.use("/home", loginRouter);
 app.use("/dashboard", dashboardRouter);
+app.use("/error", errorRouter);
 
 //Middleware
 app.listen(8080)

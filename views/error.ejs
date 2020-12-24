@@ -1,0 +1,17 @@
+</html lang="en">
+<%- include('./header.ejs');%>
+
+    <body>
+        <div class="container">
+            <% if (env=="dev" ) {%>
+            <ul>
+                <li>Code:  <%= error_message.code %> </li>
+                <li>Error:  <%= error_message.errno %> </li>
+            </ul>
+            <% }else{ %>
+                <h1>Internal Server error</h1>
+            <% } %>
+        </div>
+    </body>
+
+    </html>

@@ -19,48 +19,83 @@
 					</span>
 				</div>
 
-				<% if (lez !== null) { %> 
-				<div>
-					<table class="table table-bordered">
-						<tr>
-							<th>Orario Inizio</th>
-							<th>Orario Fine</th>
-							<th>Giorno</th>
-							<th>Nome Aula</th>
-							<th>Sede Aula</th>
-						</tr>
-						<% for (var i=0; i < lez.length; i++) { %>
+				<% if (lez !==null) { %>
+					<div>
+						<table class="table table-hover">
 							<tr>
-								<td>
-									<%= lez[i].orainizio %>
-								</td>
-								<td>
-									<%= lez[i].orafine %>
-								</td>
-								<td>
-									<%= lez[i].gg %>
-								</td>
-								<td>
-									<%= lez[i].nome %>
-								</td>
-								<td>
-									<%= lez[i].sede %>
-								</td>
-								<% } %>
+								<th>Orario Inizio</th>
+								<th>Orario Fine</th>
+								<th>Giorno</th>
+								<th>Nome Aula</th>
+								<th>Sede Aula</th>
+								<th></th>
 							</tr>
+							<% for (var i=0; i < lez.length; i++) { %>
+								<% if(lez[i].IdPrenotazione==null) { %>
+									<tr>
+										<% } else { %>
+									<tr class="success">
+										<% } %>
+											<td>
+												<%= lez[i].orainizio %>
+											</td>
+											<td>
+												<%= lez[i].orafine %>
+											</td>
+											<td>
+												<%= lez[i].gg %>
+											</td>
+											<td>
+												<%= lez[i].nome %>
+											</td>
+											<td>
+												<%= lez[i].sede %>
+											</td>
+											<td>
 
-					</table>
-				</div>
-				<% } %> 
+												<% if(lez[i].IdPrenotazione==null) { %>
+													<form method="POST" action="/dashboard/save" style="margin: 0; padding: 0;">
+														<input type="hidden" value="<%= lez[i].id %>" name="idLezione">
+														<input type="hidden" value="<%= matricola %>" name="matricola">
+														<input type="hidden" value="<%= idInsegnamento %>"
+															name="idInsegnamento">
+															<button type="submit" class="btn btn-success btn-sm" >
+																<span class="glyphicon glyphicon-ok"
+																	aria-hidden="true"></span>
+															</button>
+													</form>
+													<% } else { %>
+														<form method="POST" action="/dashboard/delete" style="margin: 0; padding: 0;">
+															<input type="hidden" value="<%= lez[i].idPrenotazione %>"
+																name="idPrenotazione">
+															<input type="hidden" value="<%= idInsegnamento %>"
+																name="idInsegnamento">
+
+															<button type="submit" class="btn btn-danger btn-sm" >
+																<span class="glyphicon glyphicon-trash"
+																	aria-hidden="true"></span>
+															</button>
+
+														</form>
+														<% } %>
+											</td>
+									</tr>
+									<% } %>
+						</table>
+					</div>
+					<% } %>
 		</div>
 		<script>
 
 
 			$("#btnSearch").click(function () {
-				// alert("search");
-				var insegnamento = $("name=[insegnamento]").val();
-				window.location.href = "/dashboard/reservation?id=10";
+				var insegnamento = $("[name='insegnamento']").val();
+				window.location.href = "/dashboard/reservation?id=" + insegnamento;
 			});
+
+			// $("#btnPrenotazione").click(function () {
+			// 	alert("prenotazione");
+			// });
 		</script>
 	</body>
 
