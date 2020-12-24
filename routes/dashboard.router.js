@@ -12,14 +12,12 @@ router.get("/", function (req, res, next) {
     logging.info(req.session.userId.email);
 
     if (email == null) {
-        res.redirect("/login");
-        return;
+        return res.redirect("/login");
     }
 
     var sql = "SELECT * FROM studente WHERE `email`='" + email + "'";
     db.query(sql, function (err, results) {
-
-        res.render('dashboard.ejs', { user: user, userId: req.session.userId });
+        return res.render('dashboard.ejs', { user: user, userId: req.session.userId });
     });
 });
 
@@ -41,10 +39,10 @@ router.get("/reservation/:id?", function (req, res) {
             var sql1 = "SELECT orainizio, orafine, gg, insegnamento, nome, sede, postitotali FROM lezione inner join aula on lezione.idaula = aula.id";
             db.query(sql1, function (err, result2) {
                 //    logging.info(result2);
-                res.render('prenotazione.ejs', { ins: result, userId: req.session.userId, lez: result2 });
+                return res.render('prenotazione.ejs', { ins: result, userId: req.session.userId, lez: result2 });
             });
         } else {
-            res.render('prenotazione.ejs', { ins: result, userId: req.session.userId, lez: null });
+            return res.render('prenotazione.ejs', { ins: result, userId: req.session.userId, lez: null });
         }
 
     });

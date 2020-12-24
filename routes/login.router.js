@@ -8,6 +8,7 @@ router.get('/login', function (req, res) {
     res.render('login.ejs', { message: message });
 });
 
+//login
 router.post('/login', function (req, res) {
     var message = '';
     var sess = req.session;
@@ -32,19 +33,20 @@ router.post('/login', function (req, res) {
 
 });
 
+//logout
 router.get('/logout', function (req, res) {
     req.session.destroy(function (err) {
         res.redirect("/");
     })
 });
 
+//profile info
 router.get("/profile", function (req, res) {
 
     var user = req.session,
        email = req.session.userId.email;
     if (email == null) {
-        res.redirect("/home/login");
-        return;
+        return res.redirect("/home/login");
     }
 
     logging.info('email ' + email)

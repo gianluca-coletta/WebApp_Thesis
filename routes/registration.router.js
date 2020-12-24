@@ -19,7 +19,7 @@ async function fillCorsoDiLaurea() {
 
 router.get("/signup", async function (req, res) {
     var cdl = await fillCorsoDiLaurea();
-    res.render('signup', { message: null, cdl });
+    return res.render('signup', { message: null, cdl });
 });
 
 router.post("/signup", async function (req, res) {
@@ -74,19 +74,19 @@ router.post("/signup", async function (req, res) {
     // Check fields validations
     if (matr == '' || fname == '' || lname == '' || pass == '' || mail == '' || mob == '' || cdl == '') {
         message = 'Controlla che tutti i campi siano riempiti correttamente!';
-        await returnForm(message);
+        return await returnForm(message);
     }
 
     // Check matricola
     if (await isMatricolaDuplicated(matr)) {
         message = "La matricola è duplicata";
-        await returnForm(message);
+        return await returnForm(message);
     }
 
     // Check email
     if (await isEmailDuplicated(mail)) {
         message = "L'email è duplicata";
-        await returnForm(message);
+        return await returnForm(message);
     }
 
     db.query(sql, values, async (err, result) => {
@@ -95,7 +95,7 @@ router.post("/signup", async function (req, res) {
         else
             message = "Registrazione avvenuta con successo!";
         // logging.info("hai appena aggiunto un nuovo studente \n Comunicazione con il database riuscita");
-        await returnForm(message);
+        return await returnForm(message);
     });
 });
 
