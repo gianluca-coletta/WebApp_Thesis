@@ -3,18 +3,63 @@ var router = express.Router();
 var logging = require("../models/logging");
 var moment = require("moment");
 
+//delete prenotazione
 router.post("/delete", (req, res) => {
     if (!req.session.userId) res.redirect("/home/login");
 
     var idPrenotazione = req.body.idPrenotazione;
     var idInsegnamento = req.body.idInsegnamento;
+    //logging.info("idPrenotazione"+idPrenotazione)
 
-    // DELETE FROM 
+    var sql = `DELETE FROM prenotazione WHERE id = '${idPrenotazione}'`;
+    db.query(sql, function (err, result) {
 
-    return res.redirect(`/dashboard/reservation?id=${idInsegnamento}`);
+        return res.redirect(`/dashboard/reservation?id=${idInsegnamento}`);
+    });
 });
 
+//save prenotazione
 router.post("/save", (req, res) => {
+
+    // Posti contiene un array di numeri
+    function getFirstFreeSeat(posti){
+        var i = 1;
+        
+        for (let index = 0; index < posti.length; index++) {
+            const e = posti[index];
+            if (e !== i) {
+                // i contiene il posto libero
+                break;
+            }
+            i++;
+        }
+    
+        return i;
+    }
+
+    function hasFreeSeat(idLezione) {
+        var sql = `
+                    select 
+                            PostiTotali    
+                    from aula a 
+                        inner join lezione l
+                            on l.IdAula = a.id
+                        left join prenotazione p
+                            on p.IdLezione = l.Id
+                    where l.id = ${idLezione}
+                  `
+        // db.query(..., function(err,res))
+            var postitotali = res[0].PostiTotali
+            var sql = `
+                    select PostiAssegnati
+                    from v_lezione_postiassegnati
+                    where idLezione = ${idLezione}
+                `
+            // db.query(..., function(err,res))
+                var postiOccupati = res[0].PostiAssegnati
+                //  return (postitotali - postiOccupati) > 0;
+    };
+
     if (!req.session.userId) res.redirect("/home/login");
 
     var matricola = req.body.matricola;
@@ -23,10 +68,27 @@ router.post("/save", (req, res) => {
 
     // logging.info(`matricola ${matricola} idLezione ${idLezione} idInsegnamento ${idInsegnamento}`);
 
-    // INSERT INTO TABELLA
+    // 
+    if (hasFreeSeat(idLezione)) {
 
+        var sql = "SELECT NumPosto from prenotazione where idLezione = ?"
+        // db.query(..., (err,res))
+        var posti = [1,2,4,5,6,7];
+        // var posti = res.map(p=> p.NumPosto)
+        var seat = getFirstFreeSeat(posti);
+        
 
-    return res.redirect(`/dashboard/reservation?id=${idInsegnamento}`);
+        var sql = "INSERT INTO prenotazione (numposto, studente, idlezione) VALUES (?,?,?)";
+        var values = [seat, matricola, idLezione];
+        db.query(sql, values, function (err, result) {
+
+            return res.redirect(`/dashboard/reservation?id=${idInsegnamento}`);
+        });
+
+    } else {
+        return res.redirect(`/dashboard/reservation?id=${idInsegnamento}`);
+    }
+
 });
 
 router.get("/", function (req, res, next) {
@@ -59,7 +121,15 @@ router.get("/reservation/:id?", function (req, res) {
 
     var email = req.session.userId.email;
 
-    var sql = "SELECT i.* FROM studente s inner join insegnamento i on s.corsodilaurea = i.CorsoDiLaurea WHERE s.email = '" + email + "'";
+    var sql = `
+    SELECT 
+        i.* 
+    FROM 
+        studente s 
+        inner join insegnamento i 
+            on s.corsodilaurea = i.CorsoDiLaurea 
+    WHERE s.email = '${email}'
+    `;
 
     db.query(sql, function (err, result) {
         if (id !== undefined) {
@@ -74,7 +144,8 @@ router.get("/reservation/:id?", function (req, res) {
                 ,sede
                 ,postitotali 
                 ,p.Studente
-                ,p.id IdPrenotazione
+                ,p.id as idPrenotazione
+                ,p.NumPosto
             FROM 
                 lezione 
                 inner join aula 
@@ -82,11 +153,9 @@ router.get("/reservation/:id?", function (req, res) {
 				left join prenotazione p
                     on lezione.id = p.idLezione
                     and p.Studente = '${req.session.userId.matricola}'
-			WHERE insegnamento = '${id}'
+			WHERE insegnamento = '${id}' 
             `;
-            // logging.info(sql1);
             db.query(sql1, function (err, result2) {
-                //    logging.info(result2);
 
                 if (err) {
                     req.session.error_message = err;

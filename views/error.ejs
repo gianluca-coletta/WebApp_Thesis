@@ -4,12 +4,21 @@
     <body>
         <div class="container">
             <% if (env=="dev" ) {%>
-            <ul>
+            <h1>ERROR</h1>
+                <ul>
                 <li>Code:  <%= error_message.code %> </li>
                 <li>Error:  <%= error_message.errno %> </li>
+                <li>sqlMessage:  <%= error_message.sqlMessage %> </li>
+                <li>sqlState:  <%= error_message.sqlState %> </li>
             </ul>
             <% }else{ %>
-                <h1>Internal Server error</h1>
+                <div class="jumbotron">
+                    <h2 align="center">INTERNAL SERVER ERROR 500</h2>
+                    <p align="center">Oops, qualcosa è andato storto.</p>
+                    <p align="center">Prova ad aggiornare la pagina oppure ritorna alla <a href="/">home.</a></p>
+                    <p align="center">Se il problema persiste contattaci.</p>
+                    <hr class="my-4">
+                </div>
             <% } %>
         </div>
     </body>
