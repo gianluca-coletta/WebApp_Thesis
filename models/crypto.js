@@ -1,14 +1,20 @@
 var crypto = require("crypto");
 
-function cypher(value) {
+function sha256(value) {
     return crypto
                 .createHash("sha256")
                 .update(value)
                 .digest("hex");
 }
 
+function hashPassword(value){
+    return sha256(value);
+}
+
+
 module.exports = {
-    cypher
+    sha256,
+    hashPassword
 }
 
 // Login

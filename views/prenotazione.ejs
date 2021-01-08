@@ -8,6 +8,7 @@
 				<label for="insegnamento">Cerca le lezioni relative ad un insegnamento</label>
 				<div class="input-group">
 					<select name="insegnamento" class="form-control">
+						<option value="null" disabled>SELEZIONA UN INSEGNAMENTO</option>
 						<% for (var i=0; i < ins.length; i++) { %>
 							<option value="<%= ins[i].CodiceI %>">
 								<%= ins[i].Nome %>
@@ -18,19 +19,20 @@
 						<button id="btnSearch" type="button" class="btn btn-primary">Cerca</button>
 					</span>
 				</div>
+				<br></br>
 
 				<% if (lez !==null) { %>
 					<div>
 						<table class="table table-hover">
 							<tr>
-								<th>Orario Inizio</th>
-								<th>Orario Fine</th>
-								<th>Giorno</th>
-								<th>Nome Aula</th>
-								<th>Sede Aula</th>
-								<th>Posti Totali</th>
-								<th>Posti Rimanenti</th>
-								<th>Numero Posto</th>
+								<th style="text-align:center">Orario Inizio</th>
+								<th style="text-align:center">Orario Fine</th>
+								<th style="text-align:center">Giorno</th>
+								<th style="text-align:center">Nome Aula</th>
+								<th style="text-align:center"> Sede Aula</th>
+								<th style="text-align:center">Posti Totali</th>
+								<th style="text-align:center">Posti Rimanenti</th>
+								<th style="text-align:center">Numero Posto</th>
 								<th></th>
 							</tr>
 							<% for (var i=0; i < lez.length; i++) { %>
@@ -39,57 +41,61 @@
 										<% } else { %>
 									<tr class="success">
 										<% } %>
-											<td>
+											<td align="center">
 												<%= lez[i].orainizio %>
 											</td>
-											<td>
+											<td align="center">
 												<%= lez[i].orafine %>
 											</td>
-											<td>
+											<td align="center">
 												<%= lez[i].gg %>
 											</td>
-											<td>
+											<td align="center">
 												<%= lez[i].nome %>
 											</td>
-											<td>
+											<td align="center">
 												<%= lez[i].sede %>
 											</td>
-											<td>
+											<td align="center">
 												<%= lez[i].PostiTotali %>
 											</td>
-											<td>
+											<td align="center">
 												<%= lez[i].PostiRimanenti %>
 											</td>
-											<td>
+											<td align="center">
 												<%= lez[i].NumPosto %>
 											</td>
-											<td>
-												
-													<% if(lez[i].idPrenotazione!=null) { %>
-														<form method="POST" action="/dashboard/delete" style="margin: 0; padding: 0;">
-															<input type="hidden" value="<%= lez[i].idPrenotazione %>"
-																name="idPrenotazione">
+											<td align="center">
+
+												<% if(lez[i].idPrenotazione!=null) { %>
+													<form method="POST" action="/dashboard/delete"
+														style="margin: 0; padding: 0;">
+														<input type="hidden" value="<%= lez[i].idPrenotazione %>"
+															name="idPrenotazione">
+														<input type="hidden" value="<%= idInsegnamento %>"
+															name="idInsegnamento">
+
+														<button type="submit" class="btn btn-danger btn-sm">
+															<span class="glyphicon glyphicon-trash"
+																aria-hidden="true"></span>
+														</button>
+
+													</form>
+													<% } else if(lez[i].PostiRimanenti !=0){ %>
+														<form method="POST" action="/dashboard/save"
+															style="margin: 0; padding: 0;">
+															<input type="hidden" value="<%= lez[i].id %>"
+																name="idLezione">
+															<input type="hidden" value="<%= matricola %>"
+																name="matricola">
 															<input type="hidden" value="<%= idInsegnamento %>"
 																name="idInsegnamento">
-
-															<button type="submit" class="btn btn-danger btn-sm" >
-																<span class="glyphicon glyphicon-trash"
+															<button type="submit" class="btn btn-info btn-sm">
+																<span class="glyphicon glyphicon-plus"
 																	aria-hidden="true"></span>
 															</button>
-
 														</form>
-													<% } else if(lez[i].PostiRimanenti != 0){ %>
-														<form method="POST" action="/dashboard/save" style="margin: 0; padding: 0;">
-															<input type="hidden" value="<%= lez[i].id %>" name="idLezione">
-															<input type="hidden" value="<%= matricola %>" name="matricola">
-															<input type="hidden" value="<%= idInsegnamento %>"
-																name="idInsegnamento">
-																<button type="submit" class="btn btn-info btn-sm" >
-																	<span class="glyphicon glyphicon-plus"
-																		aria-hidden="true"></span>
-																</button>
-														</form>
-													<% } %>
+														<% } %>
 											</td>
 									</tr>
 									<% } %>
@@ -99,6 +105,11 @@
 		</div>
 		<script>
 
+			$(document).ready(() => {
+				var id = '<%= idInsegnamento %>';
+				if (id == "") id = "null";
+				$("[name='insegnamento']").val(id);
+			});
 
 			$("#btnSearch").click(function () {
 				var insegnamento = $("[name='insegnamento']").val();

@@ -20,7 +20,7 @@ var app = express();
 
 var mysql = require('mysql');
 var bodyParser = require("body-parser");
-var connection = mysql.createConnection({ 
+var connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: 'root',
@@ -56,15 +56,15 @@ app.use(session({
 //   next();
 // });
 
-// var auth = (req, res, next) => {
-//   res.msg = "foo";
-//   next();
-// };
+var authentication = (req, res, next) => {
+  if (!req.session.userId) res.redirect("/home/login");
+  next();
+};
 
 app.use("/", homeRouter);
 app.use("/registration", registrationRouter);
 app.use("/home", loginRouter);
-app.use("/dashboard", dashboardRouter);
+app.use("/dashboard", authentication, dashboardRouter);
 app.use("/error", errorRouter);
 
 //Middleware

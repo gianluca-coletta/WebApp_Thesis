@@ -5,11 +5,9 @@ var moment = require("moment");
 
 //delete prenotazione
 router.post("/delete", (req, res) => {
-    if (!req.session.userId) res.redirect("/home/login");
 
     var idPrenotazione = req.body.idPrenotazione;
     var idInsegnamento = req.body.idInsegnamento;
-    //logging.info("idPrenotazione"+idPrenotazione)
 
     var sql = `DELETE FROM prenotazione WHERE id = '${idPrenotazione}'`;
     db.query(sql, function (err, result) {
@@ -83,15 +81,11 @@ router.post("/save", async (req, res) => {
         });
     }
 
-    if (!req.session.userId) res.redirect("/home/login");
 
     var matricola = req.body.matricola;
     var idLezione = req.body.idLezione;
     var idInsegnamento = req.body.idInsegnamento;
 
-    // logging.info(`matricola ${matricola} idLezione ${idLezione} idInsegnamento ${idInsegnamento}`);
-
-    // 
     if (await hasFreeSeat(idLezione)) {
 
         var sql = `SELECT NumPosto from prenotazione where idLezione = ${idLezione}`
@@ -115,8 +109,6 @@ router.post("/save", async (req, res) => {
 
 router.get("/", function (req, res, next) {
 
-    if (!req.session.userId) res.redirect("/home/login");
-
     var user = req.session;
     var email = req.session.userId.email;
 
@@ -134,8 +126,8 @@ router.get("/", function (req, res, next) {
 
 router.get("/reservation/:id?", function (req, res) {
 
-    if (!req.session.userId) res.redirect("/home/login");
     var id = req.query.id;
+    if (id == undefined) id = null;
 
     logging.info(id);
 
@@ -196,7 +188,7 @@ router.get("/reservation/:id?", function (req, res) {
                     userId: req.session.userId,
                     matricola: req.session.userId.matricola,
                     idInsegnamento: id,
-                    lez: result2
+                    lez: result2,
                 });
             });
         } else {
@@ -204,6 +196,7 @@ router.get("/reservation/:id?", function (req, res) {
                 ins: result,
                 userId: req.session.userId,
                 matricola: req.session.userId.matricola,
+                idInsegnamento: id,
                 lez: null
             });
         }

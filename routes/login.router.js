@@ -18,7 +18,7 @@ router.post('/login', function (req, res) {
     var pass = post.password;
     var sql = "SELECT matricola, nome, cognome, email, password FROM studente WHERE email='" + mail + "'";
     db.query(sql, function (err, results) {
-        if (results.length === 0 || results[0].password != crypto.cypher(pass)) {
+        if (results.length === 0 || results[0].password != crypto.hashPassword(pass)) {
             message = 'Credenziali errate';
             res.render('login.ejs', { message: message });
         } else {
@@ -58,5 +58,25 @@ router.get("/profile", function (req, res) {
         res.render('profile.ejs', { user: user, data: result, userId: req.session.userId });
     });
 });
+
+//myReservation
+
+router.get("/myReservation", function (req, res) {
+
+    var user = req.session,
+        email = req.session.userId.email,
+        matricola = req.session.userId.matricola;
+    if (email == null) {
+        return res.redirect("/home/login");
+    }
+
+    var sql = "da fare";
+    db.query(sql, function (err, result) {
+        res.render('myReservation.ejs', {
+            user: user, 
+            userId: req.session.userId });
+    });
+});
+
 
 module.exports = router;

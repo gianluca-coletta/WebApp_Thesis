@@ -67,7 +67,7 @@ router.post("/signup", async function (req, res) {
     var lname = post.cognome;
     var mob = post.numerotelefonico;
 
-    var pass2 = crypto.cypher(pass);
+    var pass2 = crypto.hashPassword(pass);
     var sql = "INSERT INTO studente (matricola, nome, cognome, password, email, numerotelefonico, corsodilaurea) VALUES (?,?,?,?,?,?,?)";
     var values = [matr, fname, lname, pass2, mail, mob, cdl];
 
