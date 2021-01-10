@@ -4,6 +4,56 @@
     <body>
         <div class="container">
             <%- include('./menu.ejs');%>
+                <h3>Prenotazioni effettuate</h3>
+                <br></br>
+                <div>
+                    <table class="table table-hover">
+                        <tr>
+                            <th style="text-align:center">Insegnamento</th>
+                            <th style="text-align:center">Orario Inizio</th>
+                            <th style="text-align:center">Orario Fine</th>
+                            <th style="text-align:center">Giorno</th>
+                            <th style="text-align:center">Nome Aula</th>
+                            <th style="text-align:center">Sede Aula</th>
+                            <th style="text-align:center">Numero Posto</th>
+                            <th style="text-align:center">Elimina</th>
+                        </tr>
+                        <% for (var i=0; i < reserv.length; i++) { %>
+                            <tr>
+                                <td align="center">
+                                    <%= reserv[i].Insegnamento %>
+                                </td>
+                                <td align="center">
+                                    <%= reserv[i].orainizio %>
+                                </td>
+                                <td align="center">
+                                    <%= reserv[i].orafine %>
+                                </td>
+                                <td align="center">
+                                    <%= reserv[i].gg %>
+                                </td>
+                                <td align="center">
+                                    <%= reserv[i].Aula %>
+                                </td>
+                                <td align="center">
+                                    <%= reserv[i].sede %>
+                                </td>
+                                <td align="center">
+                                    <%= reserv[i].NumPosto %>
+                                </td>
+                                <td align="center">
+                                    <form method="POST" action="/home/delete" style="margin: 0; padding: 0;">
+                                        <input type="hidden" value="<%= reserv[i].idPrenotazione %>"
+                                            name="idPrenotazione">
+
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                        </button>
+                                </td>
+                            </tr>
+                            <% } %>
+                    </table>
+                </div>
         </div>
     </body>
 

@@ -74,7 +74,6 @@ router.post("/save", async (req, res) => {
                         var postiOccupati = result1[0].PostiAssegnati;
                     }
                     const freeSeat = postitotali - postiOccupati;
-                    // logging.info(`freeSeat: ${freeSeat}`)
                     resolve(freeSeat > 0);
                 });
             });
@@ -112,8 +111,6 @@ router.get("/", function (req, res, next) {
     var user = req.session;
     var email = req.session.userId.email;
 
-    logging.info(req.session.userId.email);
-
     if (email == null) {
         return res.redirect("/login");
     }
@@ -129,7 +126,6 @@ router.get("/reservation/:id?", function (req, res) {
     var id = req.query.id;
     if (id == undefined) id = null;
 
-    logging.info(id);
 
     // Select Ins e Lez
 

@@ -19,15 +19,10 @@
                                     <%= message %>
                                 </div>
                                 <% } %>
-                                    <!-- <div id="signupalert" style="display:none" class="alert alert-danger">
-                                        <p>Error:</p>
-                                        <span></span>
-                                    </div> -->
-
                                     <!-- Nome -->
                                     <div class="form-group" id="nome">
-                                        <label for="nome" >Nome</label>
-                                        <div >
+                                        <label for="nome">Nome</label>
+                                        <div>
                                             <input type="text" class="form-control" name="nome" placeholder="Nome">
                                             <span id="nome_error" class="text-danger"></span>
                                         </div>
@@ -35,8 +30,8 @@
 
                                     <!-- Cognome -->
                                     <div class="form-group" id="cogn">
-                                        <label for="cognome" >Cognome</label>
-                                        <div >
+                                        <label for="cognome">Cognome</label>
+                                        <div>
                                             <input type="text" class="form-control" name="cognome"
                                                 placeholder="Cognome">
                                             <span id="cogn_error" class="text-danger"></span>
@@ -45,8 +40,8 @@
 
                                     <!-- Matricola -->
                                     <div class="form-group" id="matr">
-                                        <label for="matricola" >Matricola</label>
-                                        <div >
+                                        <label for="matricola">Matricola</label>
+                                        <div>
                                             <input type="number" class="form-control" name="matricola"
                                                 placeholder="Matricola">
                                             <span id="matr_error" class="text-danger"></span>
@@ -55,8 +50,8 @@
 
                                     <!-- Email -->
                                     <div class="form-group" id="mail">
-                                        <label for="email" >Indirizzo Email</label>
-                                        <div >
+                                        <label for="email">Indirizzo Email</label>
+                                        <div>
                                             <input type="text" class="form-control" name="email"
                                                 placeholder="Indirizzo Email">
                                             <span id="mail_error" class="text-danger"></span>
@@ -65,8 +60,8 @@
 
                                     <!-- Password -->
                                     <div class="form-group" id="pass">
-                                        <label for="password" >Password</label>
-                                        <div >
+                                        <label for="password">Password</label>
+                                        <div>
                                             <input type="password" class="form-control" name="password"
                                                 placeholder="Password">
                                             <span id="pass_error" class="text-danger"></span>
@@ -75,9 +70,9 @@
 
                                     <!-- Conferma password -->
                                     <div class="form-group" id="pass1">
-                                        <label for="confermapassword" >Conferma la
+                                        <label for="confermapassword">Conferma la
                                             Password</label>
-                                        <div >
+                                        <div>
                                             <input type="password" class="form-control" name="password1"
                                                 placeholder="Conferma la Password">
                                             <span id="pass1_error" class="text-danger"></span>
@@ -86,9 +81,9 @@
 
                                     <!-- NumeroTelefonico -->
                                     <div class="form-group" id="mob">
-                                        <label for="numerotelefonico" >Recapito
+                                        <label for="numerotelefonico">Recapito
                                             Telefonico</label>
-                                        <div >
+                                        <div>
                                             <input type="number" class="form-control" name="numerotelefonico"
                                                 placeholder="Recapito Telefonico">
                                             <span id="mob_error" class="text-danger"></span>
@@ -97,9 +92,9 @@
 
                                     <!-- CorsoDiLaurea -->
                                     <div class="form-group" id="cdl">
-                                        <label for="corsodilaurea" >Corso di
+                                        <label for="corsodilaurea">Corso di
                                             Laurea</label>
-                                        <div >
+                                        <div>
                                             <select name="corsodilaurea" class="form-control">
                                                 <option value="none">
                                                     Scegli il tuo corso di laurea
@@ -238,10 +233,6 @@
                         $("#pass1_error").show();
                     }
                 }
-
-
-                //if (pass.toString() !== pass1.toString())
-                //   $("#pass", "#pass1").addClass("has-error");
 
                 if (mob === "") {
                     hasError = true;

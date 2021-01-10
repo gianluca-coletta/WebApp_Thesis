@@ -4,8 +4,7 @@
 	<body>
 		<div class="container">
 			<%- include('./menu.ejs');%>
-				<!-- <div class="row"> -->
-				<label for="insegnamento">Cerca le lezioni relative ad un insegnamento</label>
+				<h4>Cerca le lezioni relative ad un insegnamento</h4>
 				<div class="input-group">
 					<select name="insegnamento" class="form-control">
 						<option value="null" disabled>SELEZIONA UN INSEGNAMENTO</option>
@@ -29,7 +28,7 @@
 								<th style="text-align:center">Orario Fine</th>
 								<th style="text-align:center">Giorno</th>
 								<th style="text-align:center">Nome Aula</th>
-								<th style="text-align:center"> Sede Aula</th>
+								<th style="text-align:center">Sede Aula</th>
 								<th style="text-align:center">Posti Totali</th>
 								<th style="text-align:center">Posti Rimanenti</th>
 								<th style="text-align:center">Numero Posto</th>
@@ -115,10 +114,6 @@
 				var insegnamento = $("[name='insegnamento']").val();
 				window.location.href = "/dashboard/reservation?id=" + insegnamento;
 			});
-
-			// $("#btnPrenotazione").click(function () {
-			// 	alert("prenotazione");
-			// });
 		</script>
 	</body>
 
