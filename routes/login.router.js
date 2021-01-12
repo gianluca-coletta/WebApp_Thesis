@@ -12,8 +12,6 @@ router.get('/login', function (req, res) {
 //login
 router.post('/login', function (req, res) {
     var message = '';
-    var sess = req.session;
-
     var post = req.body;
     var mail = post.email;
     var pass = post.password;
@@ -103,11 +101,11 @@ router.get("/myReservation", function (req, res) {
         });
     });
 });
+
 //delete prenotazione
 router.post("/delete", (req, res) => {
 
     var idPrenotazione = req.body.idPrenotazione;
-    logging.info(idPrenotazione)
 
     var sql = `DELETE FROM prenotazione WHERE id = '${idPrenotazione}'`;
     db.query(sql, function (err, result) {
@@ -119,12 +117,36 @@ router.post("/delete", (req, res) => {
 //edit password
 
 router.get("/editPassword", function (req, res) {
-
+    var message = '';
     var email = req.session.userId.email
+    
     if (email == null) {
         return res.redirect("/home/login");
     }
-    return res.render('editPassword.ejs')
+    return res.render('editPassword.ejs',{ message: message })
+});
+
+router.post("/editPassword", (req, res) => {
+    var message='';
+    var pass = req.body.password;
+    var newpass = req.body.newpassword;
+    var matricola = req.session.userId.matricola;
+    var pass1 = crypto.hashPassword(pass);
+    var pass2 = crypto.hashPassword(newpass);
+    var sql = `SELECT password FROM studente WHERE matricola = ${matricola} `;
+
+   db.query(sql, function (err, result) {
+        if (result[0].password != pass1) {
+            message = 'Password vecchia errata';
+            res.render('editPassword.ejs', { message: message });
+        } else {
+            var sql1=`UPDATE studente SET password = '${pass2}' WHERE matricola = '${matricola}'`;
+            db.query(sql1, function (err, result) {
+
+            return res.redirect('/dashboard');
+        });
+    }
+    });
 });
 
 //edit profile (numero telefonico)
@@ -139,10 +161,18 @@ router.get("/editProfile", function (req, res) {
 });
 
 router.post("/editProfile", (req, res) => {
-    // var mobile = req.body.newMobile;
-    // var matricola = req.session.userId.matricola;
+    var mobile = req.body.newMobile;
+    var matricola = req.session.userId.matricola;
 
-    return res.redirect('/dashboard');
+    var sql =`
+                UPDATE studente
+                SET numerotelefonico = '${mobile}'
+                WHERE matricola = '${matricola}'
+            `;
+    db.query(sql, function (err, result) {
+
+        return res.redirect('/dashboard');
+    });
 });
 
 module.exports = router;

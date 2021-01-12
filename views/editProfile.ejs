@@ -8,7 +8,9 @@
 
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <div class="panel-title"><%=data.nome%>, <%=data.cognome%></div>
+                        <div class="panel-title">
+                            <%=data.nome%>, <%=data.cognome%>
+                        </div>
                     </div>
                     <div class="panel-body">
                         <form role="form" method="post" action="/home/editProfile">
@@ -28,6 +30,7 @@
                                 <div>
                                     <input type="number" class="form-control" name="newMobile"
                                         placeholder="Nuovo recapito telefonico">
+                                    <span id="mob_error" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="pull-right">
@@ -44,6 +47,37 @@
                 </div>
             </div>
         </div>
+        <script>
+
+            function hideErrors() {
+
+                $("#mob_error").hide();
+            }
+
+            hideErrors();
+
+            $("#btn-signup").click(function () {
+                var hasError = false;
+
+                hideErrors();
+
+                var newMob = $("[name='newMobile']").val();
+
+                $("#newMob").removeClass("has-error");
+
+                if (newMob === "") {
+                    hasError = true;
+                    $("#newMob").addClass("has-error");
+                    $("#mob_error").text("Controllare di aver inserito un recapito telefonico");
+                    $("#mob_error").show();
+                }
+
+                if (hasError)
+                    return false;
+            });
+
+
+        </script>
     </body>
 
 </html>
