@@ -81,46 +81,44 @@ router.post("/save", async (req, res) => {
         });
     }
 
-    function sendEMail(matricola, idLezione, seat) {
+    function sendNotify(idLezione, seat) {
         return new Promise((resolve, reject) => {
             var email = req.session.userId.email;
             email = "coligian@yahoo.it"; //<--- togliere
 
-            var sql =` 
-        SELECT 
-            orainizio
-            ,orafine
-            ,gg
-            ,a.nome as aula
-            ,a.sede
-            ,i.nome as insegnamento
-        FROM 
-            lezione 
-            inner join aula a
-                on lezione.idaula = a.id 
-           inner join insegnamento i
-                on lezione.insegnamento = i.CodiceI
-        WHERE lezione.id = ${idLezione}
-      `
+            var sql = ` 
+                SELECT 
+                    orainizio
+                    ,orafine
+                    ,gg
+                    ,a.nome as aula
+                    ,a.sede
+                    ,i.nome as insegnamento
+                FROM 
+                    lezione 
+                    inner join aula a
+                        on lezione.idaula = a.id 
+                inner join insegnamento i
+                        on lezione.insegnamento = i.CodiceI
+                WHERE lezione.id = ${idLezione}
+            `
             db.query(sql, (err, result) => {
                 if (err) reject(err);
-                logging.info(result)
-                var aula = result[0].aula;
-                var sede = result[0].sede;
-                var giorno = moment(result[0].gg).format('l');
-                var insegnamento = result[0].insegnamento
-                var orario = result[0].orainizio;
-                var data = {
-                    aula,
-                    sede,
-                    giorno,
-                    insegnamento,
-                    orario,
-                    seat
+
+                if (result != undefined) {
+                    var res = result[0];
+
+                    var data = {
+                        aula: res.aula,
+                        sede: res.sede,
+                        giorno: moment(res.gg).format('l'),
+                        insegnamento: res.insegnamento,
+                        orario: res.orainizio,
+                        seat
+                    }
+                    sendEMail(email, data);
                 }
-                logging.info(data)
-                logging.info(result)
-                sendEMail(email, data);
+                
                 resolve();
             });
         });
@@ -141,7 +139,7 @@ router.post("/save", async (req, res) => {
             var values = [seat, matricola, idLezione];
             db.query(sql1, values, async function (err, result1) {
                 // if (err) redirect
-                await sendEMail(matricola, idLezione, seat)
+                await sendNotify(idLezione, seat)
                 return res.redirect(`/dashboard/reservation?id=${idInsegnamento}`);
             });
         });

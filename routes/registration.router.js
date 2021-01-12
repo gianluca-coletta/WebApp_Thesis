@@ -30,8 +30,11 @@ router.post("/signup", async function (req, res) {
             var values = [matr];
             db.query(sql, values, (err, result) => {
                 if (err) reject(err);
-                var res = Number(result[0].NUM) > 0;
-                resolve(res);
+                if (result) {
+                    var res = Number(result[0].NUM) > 0;
+                    resolve(res);
+                }
+                resolve(false);
             });
         });
     }
@@ -42,8 +45,11 @@ router.post("/signup", async function (req, res) {
             var values = [mail];
             db.query(sql, values, (err, result) => {
                 if (err) reject(err);
-                var res = Number(result[0].NUM) > 0;
-                resolve(res);
+                if (result) {
+                    var res = Number(result[0].NUM) > 0;
+                    resolve(res);
+                }
+                resolve(false);
             });
         });
     }

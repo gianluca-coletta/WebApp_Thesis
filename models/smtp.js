@@ -11,7 +11,7 @@ function sendEMail(to, data) {
         to,
         subject: "Conferma prenotazione posto",
         text: `
-            Ecco i dati e la conferma della tua prenotazione appena effettuata:
+            Dati prenotazione :
 
             insegnamento: ${data.insegnamento}, 
             aula: ${data.aula},
