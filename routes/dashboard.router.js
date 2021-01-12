@@ -84,7 +84,6 @@ router.post("/save", async (req, res) => {
     function sendNotify(idLezione, seat) {
         return new Promise((resolve, reject) => {
             var email = req.session.userId.email;
-            email = "coligian@yahoo.it"; //<--- togliere
 
             var sql = ` 
                 SELECT 

@@ -13,12 +13,12 @@ function sendEMail(to, data) {
         text: `
             Dati prenotazione :
 
-            insegnamento: ${data.insegnamento}, 
-            aula: ${data.aula},
-            sede dell'aula: ${data.sede},
-            giorno: ${data.giorno}, 
-            orario inizio: ${data.orario},
-            numero posto: ${data.seat}.
+            Insegnamento: ${data.insegnamento}, 
+            Aula: ${data.aula},
+            Sede dell'aula: ${data.sede},
+            Giorno: ${data.giorno}, 
+            Orario inizio: ${data.orario},
+            Numero posto: ${data.seat}.
 
         `,
     });
