@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var logging = require("../models/logging");
 var moment = require("moment");
+const { sendEMail } = require("../models/smtp");
 
 //delete prenotazione
 router.post("/delete", (req, res) => {
@@ -80,6 +81,50 @@ router.post("/save", async (req, res) => {
         });
     }
 
+    function sendEMail(matricola, idLezione, seat) {
+        return new Promise((resolve, reject) => {
+            var email = req.session.userId.email;
+            email = "coligian@yahoo.it"; //<--- togliere
+
+            var sql =` 
+        SELECT 
+            orainizio
+            ,orafine
+            ,gg
+            ,a.nome as aula
+            ,a.sede
+            ,i.nome as insegnamento
+        FROM 
+            lezione 
+            inner join aula a
+                on lezione.idaula = a.id 
+           inner join insegnamento i
+                on lezione.insegnamento = i.CodiceI
+        WHERE lezione.id = ${idLezione}
+      `
+            db.query(sql, (err, result) => {
+                if (err) reject(err);
+                logging.info(result)
+                var aula = result[0].aula;
+                var sede = result[0].sede;
+                var giorno = moment(result[0].gg).format('l');
+                var insegnamento = result[0].insegnamento
+                var orario = result[0].orainizio;
+                var data = {
+                    aula,
+                    sede,
+                    giorno,
+                    insegnamento,
+                    orario,
+                    seat
+                }
+                logging.info(data)
+                logging.info(result)
+                sendEMail(email, data);
+                resolve();
+            });
+        });
+    }
 
     var matricola = req.body.matricola;
     var idLezione = req.body.idLezione;
@@ -94,8 +139,9 @@ router.post("/save", async (req, res) => {
 
             var sql1 = "INSERT INTO prenotazione (numposto, studente, idlezione) VALUES (?,?,?)";
             var values = [seat, matricola, idLezione];
-            db.query(sql1, values, function (err, result1) {
-
+            db.query(sql1, values, async function (err, result1) {
+                // if (err) redirect
+                await sendEMail(matricola, idLezione, seat)
                 return res.redirect(`/dashboard/reservation?id=${idInsegnamento}`);
             });
         });

@@ -52,7 +52,7 @@ router.get("/profile", function (req, res) {
     if (email == null) {
         return res.redirect("/home/login");
     }
-    
+
     var sql = "SELECT * FROM `studente` WHERE `email`='" + email + "'";
     db.query(sql, function (err, result) {
         res.render('profile.ejs', { user: user, data: result, userId: req.session.userId });
@@ -68,8 +68,8 @@ router.get("/myReservation", function (req, res) {
     if (email == null) {
         return res.redirect("/home/login");
     }
-//select prenotazioni
-    var sql =  `
+    //select prenotazioni
+    var sql = `
             SELECT 
                 orainizio
                 ,orafine
@@ -94,13 +94,13 @@ router.get("/myReservation", function (req, res) {
             req.session.error_message = err;
             return res.redirect("/error");
         }
-         // Format date for dd-mm-yyyy
-         result.forEach(p => { p.gg = moment(p.gg).format('l'); });
+        // Format date for dd-mm-yyyy
+        result.forEach(p => { p.gg = moment(p.gg).format('l'); });
 
         return res.render('myReservation.ejs', {
             userId: req.session.userId,
             reserv: result
-             });
+        });
     });
 });
 //delete prenotazione
@@ -110,12 +110,39 @@ router.post("/delete", (req, res) => {
     logging.info(idPrenotazione)
 
     var sql = `DELETE FROM prenotazione WHERE id = '${idPrenotazione}'`;
-    logging.info(sql)
     db.query(sql, function (err, result) {
 
         return res.redirect(`/home/myReservation`);
     });
 });
 
+//edit password
+
+router.get("/editPassword", function (req, res) {
+
+    var email = req.session.userId.email
+    if (email == null) {
+        return res.redirect("/home/login");
+    }
+    return res.render('editPassword.ejs')
+});
+
+//edit profile (numero telefonico)
+
+router.get("/editProfile", function (req, res) {
+
+    var email = req.session.userId.email
+    if (email == null) {
+        return res.redirect("/home/login");
+    }
+    return res.render('editProfile.ejs', { data: req.session.userId });
+});
+
+router.post("/editProfile", (req, res) => {
+    // var mobile = req.body.newMobile;
+    // var matricola = req.session.userId.matricola;
+
+    return res.redirect('/dashboard');
+});
 
 module.exports = router;

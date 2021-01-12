@@ -94,7 +94,6 @@ router.post("/signup", async function (req, res) {
             message = err;
         else
             message = "Registrazione avvenuta con successo!";
-        // logging.info("hai appena aggiunto un nuovo studente \n Comunicazione con il database riuscita");
         return await returnForm(message);
     });
 });

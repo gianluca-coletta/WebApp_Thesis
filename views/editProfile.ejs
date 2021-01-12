@@ -1,0 +1,49 @@
+<html>
+<%- include('./header.ejs');%>
+
+    <body>
+        <div class="container col-sm-12" id="mainform">
+            <div id="editProfile" style=" margin-top:50px"
+                class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <div class="panel-title"><%=data.nome%>, <%=data.cognome%></div>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" method="post" action="/home/editProfile">
+                            <!-- Email -->
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <div>
+                                    <p class="text-primary">
+                                        <%= data.email %>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- recapito telefonico -->
+                            <div class="form-group" id="newMob">
+                                <label for="mobile">Recapito telefonico</label>
+                                <div>
+                                    <input type="number" class="form-control" name="newMobile"
+                                        placeholder="Nuovo recapito telefonico">
+                                </div>
+                            </div>
+                            <div class="pull-right">
+                                <!-- Save -->
+                                <button id="btn-signup" type="submit" class="btn btn-success"><i
+                                        class="icon-hand-right"></i> Salva </button>
+
+                                <!-- Cancel -->
+                                <a class="btn btn-default" href="/dashboard" role="button">Annulla</a>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>
